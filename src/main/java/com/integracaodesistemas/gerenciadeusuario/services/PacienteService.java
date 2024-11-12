@@ -30,6 +30,16 @@ public class PacienteService {
         return pacienteRepository.save(paciente);
     }
 
+    public Optional<Paciente> atualizarPaciente(Long id, Paciente pacienteAtualizado) {
+        return pacienteRepository.findById(id).map(pacienteExistente -> {
+            pacienteExistente.setNome(pacienteAtualizado.getNome());
+            pacienteExistente.setCpf(pacienteAtualizado.getCpf());
+            pacienteExistente.setDataNascimento(pacienteAtualizado.getDataNascimento());
+            pacienteExistente.setEndereco(pacienteAtualizado.getEndereco());
+            pacienteExistente.setTelefone(pacienteAtualizado.getTelefone());
+            return pacienteRepository.save(pacienteExistente);
+        });
+    }
     public void deletarPaciente(Long id){
         pacienteRepository.deleteById(id);
     }

@@ -24,4 +24,7 @@ public class Paciente implements Serializable {
     private String cpf;
     private String endereco;
     private String telefone;
+
 }
+
+
