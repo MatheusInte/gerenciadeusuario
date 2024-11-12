@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/medicos")
@@ -37,6 +38,11 @@ public class MedicoController {
     @PostMapping
     public Medico adicionarMedico(@RequestBody Medico medico){
         return medicoService.salvarMedico(medico);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<Optional<Medico>> atualizarMedico(@PathVariable Long id, @RequestBody Medico medicoAtualizado){
+        return ResponseEntity.ok(medicoService.atualizarMedico(id, medicoAtualizado));
     }
 
     @DeleteMapping("/{id}")

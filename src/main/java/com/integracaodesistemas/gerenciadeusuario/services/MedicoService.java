@@ -5,6 +5,8 @@ import com.integracaodesistemas.gerenciadeusuario.entities.Paciente;
 import com.integracaodesistemas.gerenciadeusuario.repositories.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +33,14 @@ public class MedicoService {
         return medicoRepository.save(medico);
     }
 
+    public Optional<Medico> atualizarMedico(Long id, Medico medicoAtualizado){
+        return medicoRepository.findById(id).map(medicoExistente -> {
+           medicoExistente.setNome(medicoAtualizado.getNome());
+           medicoExistente.setCrm(medicoAtualizado.getCrm());
+           medicoExistente.setTelefone(medicoAtualizado.getTelefone());
+           return medicoRepository.save(medicoExistente);
+        });
+    }
     public void deletarMedico(Long id){
         medicoRepository.deleteById(id);
     }
